@@ -29,6 +29,7 @@ public class CalculatorActivity extends AppCompatActivity {
     View.OnClickListener nBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            String tmp = "sdfsdf";
             switch (view.getId()) {
                 case R.id.btn_0: {
                     operationTv.setText(operationTv.getText() + "0");
@@ -51,7 +52,7 @@ public class CalculatorActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.btn_5: {
-                    operationTv.setText(operationTv.getText() + "5");
+                    operationTv.setText(tmp);
                     break;
                 }
                 case R.id.btn_6: {
@@ -82,6 +83,33 @@ public class CalculatorActivity extends AppCompatActivity {
                 }
 
                 case R.id.calcBtn: {
+                    String operation = operationTv.getText().toString();
+                    if(!operation.isEmpty()) {
+                        //char[] simArray = operation.toCharArray();
+                        float res = 0;
+                        char sim = 'n';
+                        for(int i = 0;  i < operation.length(); ++i){
+                            String tmpString = "";
+                            if(operation.charAt(i) == '+' || operation.charAt(i) == '-'){
+                                int tmpNum = Integer.parseInt(tmpString);
+                                tmpString = "";
+                                switch (sim){
+                                    case '+':
+                                            res += tmpNum;
+                                            break;
+                                    case '-':
+                                            res -= tmpNum;
+                                            break;
+                                }
+                                sim = 'n';
+                            }
+                            else{
+                                tmpString += operation.charAt(i);
+                            }
+                        }
+                        resultTv.setText(Float.toString(res));
+                    }
+
                     break;
                 }
 
@@ -95,7 +123,7 @@ public class CalculatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button calcBtn = (Button) findViewById(R.id.calcBtn);
+        Button calcBtn = (Button) findViewById(R.id.calcBtn);
         TextView resultTv = (TextView) findViewById(R.id.result);
         TextView operationTv = (TextView) findViewById(R.id.operation);
 
@@ -112,5 +140,17 @@ public class CalculatorActivity extends AppCompatActivity {
         Button btn_plus = (Button) findViewById(R.id.plus);
         Button btn_minus = (Button) findViewById(R.id.minus);
         calcBtn.setOnClickListener(nBtnClickListener);
+        btn_0.setOnClickListener(nBtnClickListener);
+        btn_1.setOnClickListener(nBtnClickListener);
+        btn_2.setOnClickListener(nBtnClickListener);
+        btn_3.setOnClickListener(nBtnClickListener);
+        btn_4.setOnClickListener(nBtnClickListener);
+        btn_5.setOnClickListener(nBtnClickListener);
+        btn_6.setOnClickListener(nBtnClickListener);
+        btn_7.setOnClickListener(nBtnClickListener);
+        btn_8.setOnClickListener(nBtnClickListener);
+        btn_9.setOnClickListener(nBtnClickListener);
+        btn_plus.setOnClickListener(nBtnClickListener);
+        btn_minus.setOnClickListener(nBtnClickListener);
     }
 }
