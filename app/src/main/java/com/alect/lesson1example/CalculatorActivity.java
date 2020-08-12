@@ -8,11 +8,14 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.io.Console;
+
 public class CalculatorActivity extends AppCompatActivity {
 
     TextView resultTv = null;
     TextView operationTv = null;
 
+    Button calcBtn = null;
     Button btn_0 = null;
     Button btn_1 = null;
     Button btn_2 = null;
@@ -29,7 +32,6 @@ public class CalculatorActivity extends AppCompatActivity {
     View.OnClickListener nBtnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String tmp = "sdfsdf";
             switch (view.getId()) {
                 case R.id.btn_0: {
                     operationTv.setText(operationTv.getText() + "0");
@@ -52,7 +54,7 @@ public class CalculatorActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.btn_5: {
-                    operationTv.setText(tmp);
+                    operationTv.setText(operationTv.getText() + "5");
                     break;
                 }
                 case R.id.btn_6: {
@@ -83,13 +85,14 @@ public class CalculatorActivity extends AppCompatActivity {
                 }
 
                 case R.id.calcBtn: {
-                    String operation = operationTv.getText().toString();
+                    String operation = operationTv.getText().toString() + "+";
+
                     if(!operation.isEmpty()) {
-                        //char[] simArray = operation.toCharArray();
-                        float res = 0;
-                        char sim = 'n';
-                        for(int i = 0;  i < operation.length(); ++i){
-                            String tmpString = "";
+                        char[] simArray = operation.toCharArray();
+                        int res = 0;
+                        char sim = '+';
+                        String tmpString = "";
+                        for(int i = 1;  i < operation.length(); ++i){
                             if(operation.charAt(i) == '+' || operation.charAt(i) == '-'){
                                 int tmpNum = Integer.parseInt(tmpString);
                                 tmpString = "";
@@ -101,13 +104,13 @@ public class CalculatorActivity extends AppCompatActivity {
                                             res -= tmpNum;
                                             break;
                                 }
-                                sim = 'n';
+                                sim = operation.charAt(i);
                             }
                             else{
-                                tmpString += operation.charAt(i);
+                                tmpString += Character.toString(operation.charAt(i));
                             }
                         }
-                        resultTv.setText(Float.toString(res));
+                        resultTv.setText(Integer.toString(res));
                     }
 
                     break;
@@ -123,23 +126,24 @@ public class CalculatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button calcBtn = (Button) findViewById(R.id.calcBtn);
-        TextView resultTv = (TextView) findViewById(R.id.result);
-        TextView operationTv = (TextView) findViewById(R.id.operation);
+         calcBtn = (Button) findViewById(R.id.calcBtn);
+         resultTv = (TextView) findViewById(R.id.result);
+         operationTv = (TextView) findViewById(R.id.operation);
 
-        Button btn_0 = (Button) findViewById(R.id.btn_0);
-        Button btn_1 = (Button) findViewById(R.id.btn_1);
-        Button btn_2 = (Button) findViewById(R.id.btn_2);
-        Button btn_3 = (Button) findViewById(R.id.btn_3);
-        Button btn_4 = (Button) findViewById(R.id.btn_4);
-        Button btn_5 = (Button) findViewById(R.id.btn_5);
-        Button btn_6 = (Button) findViewById(R.id.btn_6);
-        Button btn_7 = (Button) findViewById(R.id.btn_7);
-        Button btn_8 = (Button) findViewById(R.id.btn_8);
-        Button btn_9 = (Button) findViewById(R.id.btn_9);
-        Button btn_plus = (Button) findViewById(R.id.plus);
-        Button btn_minus = (Button) findViewById(R.id.minus);
-        calcBtn.setOnClickListener(nBtnClickListener);
+         btn_0 = (Button) findViewById(R.id.btn_0);
+         btn_1 = (Button) findViewById(R.id.btn_1);
+         btn_2 = (Button) findViewById(R.id.btn_2);
+         btn_3 = (Button) findViewById(R.id.btn_3);
+         btn_4 = (Button) findViewById(R.id.btn_4);
+         btn_5 = (Button) findViewById(R.id.btn_5);
+         btn_6 = (Button) findViewById(R.id.btn_6);
+         btn_7 = (Button) findViewById(R.id.btn_7);
+         btn_8 = (Button) findViewById(R.id.btn_8);
+         btn_9 = (Button) findViewById(R.id.btn_9);
+         btn_plus = (Button) findViewById(R.id.plus);
+         btn_minus = (Button) findViewById(R.id.minus);
+
+         calcBtn.setOnClickListener(nBtnClickListener);
         btn_0.setOnClickListener(nBtnClickListener);
         btn_1.setOnClickListener(nBtnClickListener);
         btn_2.setOnClickListener(nBtnClickListener);
